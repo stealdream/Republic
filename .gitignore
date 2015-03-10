@@ -1,0 +1,5 @@
+*.suo
+Republic/obj/*
+Republic/bin/*
+Republic/Properties
+*.csproj.user
