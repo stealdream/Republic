@@ -31,7 +31,7 @@ namespace Republic
 
         void ILoadingExtension.OnLevelLoaded(LoadMode mode)
         {
-            RepublicCore.instance.Initiate();
+            RepublicCore.Instance.Initiate();
         }
 
         void ILoadingExtension.OnLevelUnloading()
@@ -48,7 +48,7 @@ namespace Republic
     {
         static private RepublicCore ourInstance = null;
 
-        static public RepublicCore instance
+        static public RepublicCore Instance
         {
             get 
             {
@@ -87,7 +87,7 @@ namespace Republic
             this.governmentUI.Initiate();
         }
 
-        public Debugger debugger
+        public Debugger Debugger
         {
             get
             {
@@ -95,7 +95,7 @@ namespace Republic
             }
         }
 
-        public int generateWindowId()
+        public int GenerateWindowId()
         {
             return this.windowIdCounter++;
         }

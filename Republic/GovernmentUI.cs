@@ -18,7 +18,7 @@ namespace Republic
             this.openButtonRect.y = Screen.height - 85;
             this.windowRect.x = Screen.width / 2 - this.windowRect.width / 2;
             this.windowRect.y = Screen.height - this.windowRect.height - 115;
-            this.windowId = RepublicCore.instance.generateWindowId();
+            this.windowId = RepublicCore.Instance.GenerateWindowId();
         }
 
         private void Update()
