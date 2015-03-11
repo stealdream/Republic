@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using ICities;
 using UnityEngine;
-using ColossalFramework.Math;
 using GroogyLib.Core;
 
 namespace Republic
@@ -69,7 +68,6 @@ namespace Republic
         private GovernmentUI governmentUI = null;
         private PartyDatabase partyDatabase = null;
         private int windowIdCounter = 0;
-        private Randomizer randomizer;
 
         public RepublicCore()
         {
@@ -78,8 +76,6 @@ namespace Republic
 
         public void Initiate()
         {
-            this.randomizer = SimulationManager.instance.m_randomizer;
-
             string[] namespaces = { "Republic" };
             GameObject coreTemplate = new GameObject("RepublicCore");
             this.coreObject = GameObject.Instantiate(coreTemplate);
@@ -108,14 +104,6 @@ namespace Republic
             get 
             {
                 return this.partyDatabase;
-            }
-        }
-
-        public Randomizer Randomizer
-        {
-            get
-            {
-                return this.randomizer;
             }
         }
 

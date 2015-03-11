@@ -59,6 +59,10 @@ namespace Republic
             {
                 Party party = parties[index];
                 GUI.Label(new Rect(10, 140 + index * 30, 200, 30), party.Name);
+                Texture2D colorTexture = new Texture2D(1, 1);
+                colorTexture.SetPixel(1, 1, party.Color);
+                colorTexture.Apply();
+                GUI.DrawTexture(new Rect(150, 140 + index * 30, 26, 26), colorTexture); 
             }
         }
     }
