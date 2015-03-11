@@ -7,7 +7,7 @@ using GroogyLib.Core;
 
 namespace Republic
 {
-    public class RepublicMode : IUserMod
+    public class RepublicMod : IUserMod
     {
         public void OnLoad()
         {
@@ -29,6 +29,27 @@ namespace Republic
             {
                 return "Hello world!";
             }
+        }
+    }
+
+    public class RepublicSetup : ILoadingExtension
+    {
+        void ILoadingExtension.OnCreated(ILoading loading)
+        {
+        }
+
+        void ILoadingExtension.OnLevelLoaded(LoadMode mode)
+        {
+            RepublicCore.instance.Initiate();
+        }
+
+        void ILoadingExtension.OnLevelUnloading()
+        {
+            RepublicCore.DestroyInstance();
+        }
+
+        void ILoadingExtension.OnReleased()
+        {
         }
     }
 
@@ -59,6 +80,7 @@ namespace Republic
         public RepublicCore()
         {
         }
+        
 
         public void Initiate()
         {
@@ -85,31 +107,6 @@ namespace Republic
         public int generateWindowId()
         {
             return this.windowIdCounter++;
-        }
-    }
-
-    public class RepublicEconomyClass : EconomyExtensionBase
-    {
-        private bool m_Done;
-
-        public override long OnUpdateMoneyAmount(long internalMoneyAmount)
-        {
-            if (!m_Done)
-            {
-                RepublicCore.instance.Initiate();
-                m_Done = true;
-            }
-            return internalMoneyAmount;
-        }
-
-        public override bool OverrideDefaultPeekResource
-        {
-            get { return true; }
-        }
-
-        public override int OnPeekResource(EconomyResource resource, int amount)
-        {
-            return amount;
         }
     }
 }
