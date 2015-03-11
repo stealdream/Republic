@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Republic
 {
-    class Party
+    public class Party
     {
         private string name = "";
 

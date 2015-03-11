@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Republic
 {
-    class PartyDatabase
+    public class PartyDatabase
     {
         private List<Party> parties = new List<Party>();
 
