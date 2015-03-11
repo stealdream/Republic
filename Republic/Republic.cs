@@ -9,15 +9,6 @@ namespace Republic
 {
     public class RepublicMod : IUserMod
     {
-        public void OnLoad()
-        {
-            File.WriteAllText("republicmod.txt", "Hello world!\n");
-        }
-
-        public void OnUnload()
-        {
-        }
-
         public string Name
         {
             get { return "RepublicMod"; }
