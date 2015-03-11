@@ -66,6 +66,7 @@ namespace Republic
         private GameObject coreObject = null;
         private Debugger debuggerComponent = null;
         private GovernmentUI governmentUI = null;
+        private PartyDatabase partyDatabase = null;
         private int windowIdCounter = 0;
 
         public RepublicCore()
@@ -85,6 +86,8 @@ namespace Republic
             this.debuggerComponent.enabled = true;
             this.governmentUI = this.coreObject.AddComponent<GovernmentUI>();
             this.governmentUI.Initiate();
+
+            this.partyDatabase = new PartyDatabase();
         }
 
         public Debugger Debugger
@@ -92,6 +95,14 @@ namespace Republic
             get
             {
                 return this.debuggerComponent;
+            }
+        }
+
+        public PartyDatabase PartyDatabase
+        {
+            get 
+            {
+                return this.partyDatabase;
             }
         }
 
