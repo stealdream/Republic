@@ -49,11 +49,17 @@ namespace Republic
             for(uint index = 0, size = citizens.ItemCount(); index < size; index++)
             {
                 Citizen citizen = citizens.m_buffer[index];
-                uint nId = citizen.GetContainingUnit(index, (uint)CitizenManager.instance.m_unitCount, CitizenUnit.Flags.Home);
-                if (!citizen.Dead && nId > 0)
+                if (!citizen.Dead)
                     nCount++;
             }
             GUI.Label(new Rect(10, 100, 200, 30), "Population: " + nCount);
+
+            List<Party> parties = RepublicCore.Instance.PartyDatabase.Parties;
+            for(int index = 0, size = parties.Count; index < size; index++)
+            {
+                Party party = parties[index];
+                GUI.Label(new Rect(10, 140 + index * 30, 200, 30), party.Name);
+            }
         }
     }
 }

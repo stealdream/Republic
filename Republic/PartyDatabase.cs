@@ -12,6 +12,15 @@ namespace Republic
         {
         }
 
+        public void Initiate()
+        {
+            int numParties = RepublicCore.Instance.Randomizer.Int32(2, 8);
+            for(int index = 0; index < numParties; index++)
+            {
+                CreateParty("Party #" + index);
+            }
+        }
+
         public Party CreateParty(string name)
         {
             Party party = new Party(name);
