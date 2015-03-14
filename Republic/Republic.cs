@@ -44,6 +44,48 @@ namespace Republic
         }
     }
 
+    public class RepublicMainThread : IThreadingExtension
+    {
+        private IThreading threading = null;
+        private RepublicCore core = null;
+
+        public void OnAfterSimulationFrame()
+        {
+        }
+
+        public void OnAfterSimulationTick()
+        {
+            if (this.core.Initiated)
+            {
+                this.core.CitizenIssueDatabase.Update();
+            }
+        }
+
+        public void OnBeforeSimulationFrame()
+        {
+        }
+
+        public void OnBeforeSimulationTick()
+        {
+        }
+
+        public void OnCreated(IThreading threading)
+        {
+            this.threading = threading;
+            this.core = RepublicCore.Instance;
+        }
+
+        public void OnReleased()
+        {
+            this.threading = null;
+            this.core = null;
+        }
+
+        public void OnUpdate(float realTimeDelta, float simulationTimeDelta)
+        {
+        }
+    }
+
     public class RepublicCore
     {
         static private RepublicCore ourInstance = null;
@@ -69,6 +111,7 @@ namespace Republic
         private PartyDatabase partyDatabase = null;
         private CitizenIssueDatabase citizenDatabase = null;
         private int windowIdCounter = 0;
+        private bool initiated = false;
 
         public RepublicCore()
         {
@@ -93,6 +136,16 @@ namespace Republic
 
             this.citizenDatabase = new CitizenIssueDatabase();
             this.citizenDatabase.Initiate();
+
+            this.initiated = true;
+        }
+
+        public bool Initiated
+        {
+            get
+            {
+                return this.initiated;
+            }
         }
 
         public Debugger Debugger
@@ -108,6 +161,14 @@ namespace Republic
             get 
             {
                 return this.partyDatabase;
+            }
+        }
+
+        public CitizenIssueDatabase CitizenIssueDatabase
+        {
+            get
+            {
+                return this.citizenDatabase;
             }
         }
 

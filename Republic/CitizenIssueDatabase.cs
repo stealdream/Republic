@@ -24,6 +24,20 @@ namespace Republic
             }
         }
 
+        public void Update()
+        {
+            for(int index = 0, size = this.issues.Count; index < size; index++)
+            {
+                CitizenIssueData data = this.issues[index];
+                if(data.ShouldBeRemoved())
+                {
+                    this.issues.RemoveAt(index);
+                    index--;
+                    size--;
+                }
+            }
+        }
+
         private CitizenIssueData GenerateDataFor(Citizen citizen)
         {
             CitizenIssueData data = new CitizenIssueData(citizen);

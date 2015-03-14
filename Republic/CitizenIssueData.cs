@@ -15,6 +15,13 @@ namespace Republic
             this.owner = new WeakPtr<Citizen>(owner);
         }
 
+        public bool ShouldBeRemoved()
+        {
+            if (this.owner.IsAlive)
+                return false;
+            return true;
+        }
+
         public Citizen Owner
         {
             get
