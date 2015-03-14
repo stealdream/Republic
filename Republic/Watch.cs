@@ -14,6 +14,7 @@ namespace GroogyLib
         {
             object obj = null;
             FieldInfo field = null;
+            PropertyInfo property = null;
             string fieldName = "";
 
             public Watch(object obj, string field)
@@ -22,16 +23,17 @@ namespace GroogyLib
                 this.fieldName = field;
                 Type type = this.obj.GetType();
                 this.field = type.GetField(field, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                this.property = type.GetProperty(field, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             }
 
             public bool IsValid()
             {
-                return this.field != null;
+                return this.field != null || this.property != null;
             }
 
             public object GetValue()
             {
-                return this.field.GetValue(this.obj);
+                return this.field != null ? this.field.GetValue(this.obj) : this.property.GetValue(this.obj, null);
             }
 
             public string GetDisplayString()
