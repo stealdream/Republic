@@ -67,6 +67,7 @@ namespace Republic
         private Debugger debuggerComponent = null;
         private GovernmentUI governmentUI = null;
         private PartyDatabase partyDatabase = null;
+        private CitizenIssueDatabase citizenDatabase = null;
         private int windowIdCounter = 0;
 
         public RepublicCore()
@@ -89,6 +90,9 @@ namespace Republic
 
             this.partyDatabase = new PartyDatabase();
             this.partyDatabase.Initiate();
+
+            this.citizenDatabase = new CitizenIssueDatabase();
+            this.citizenDatabase.Initiate();
         }
 
         public Debugger Debugger

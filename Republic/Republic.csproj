@@ -53,6 +53,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CitizenIssueData.cs" />
+    <Compile Include="CitizenIssueDatabase.cs" />
     <Compile Include="Debugger.cs" />
     <Compile Include="GovernmentUI.cs" />
     <Compile Include="Milestones.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Watch.cs" />
     <Compile Include="Republic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeakPtr.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
