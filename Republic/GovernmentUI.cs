@@ -44,26 +44,17 @@ namespace Republic
 
         private void WindowFunc(int windowID)
         {
-            uint nCount = 0;
-            Array32<Citizen> citizens = CitizenManager.instance.m_citizens;
-            for(uint index = 0, size = citizens.ItemCount(); index < size; index++)
-            {
-                Citizen citizen = citizens.m_buffer[index];
-                if (!citizen.Dead)
-                    nCount++;
-            }
-            GUI.Label(new Rect(10, 100, 200, 30), "Population: " + nCount);
-
             List<Party> parties = RepublicCore.Instance.PartyDatabase.Parties;
             for(int index = 0, size = parties.Count; index < size; index++)
             {
                 Party party = parties[index];
-                GUI.Label(new Rect(10, 140 + index * 30, 200, 30), party.Name);
+                GUI.Label(new Rect(200, 100 + index * 30, 200, 30), party.Name);
                 Texture2D colorTexture = new Texture2D(1, 1);
                 colorTexture.SetPixel(1, 1, party.Color);
                 colorTexture.Apply();
-                GUI.DrawTexture(new Rect(150, 140 + index * 30, 26, 26), colorTexture); 
+                GUI.DrawTexture(new Rect(350, 100 + index * 30, 26, 26), colorTexture); 
             }
         }
     }
 }
+
