@@ -55,10 +55,6 @@ namespace Republic
 
         public void OnAfterSimulationTick()
         {
-            if (this.core.Initiated)
-            {
-                this.core.CitizenIssueDatabase.Update();
-            }
         }
 
         public void OnBeforeSimulationFrame()
@@ -83,6 +79,10 @@ namespace Republic
 
         public void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
+            if (this.core.Initiated)
+            {
+                this.core.CitizenIssueDatabase.Update();
+            }
         }
     }
 

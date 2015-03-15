@@ -2,31 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using GroogyLib.Core;
+using ColossalFramework;
 
 namespace Republic
 {
     public class CitizenIssueData
     {
-        private WeakPtr<Citizen> owner = null;
+        static private CitizenManager citizenManager = Singleton<CitizenManager>.instance;
+        private uint owner = 0;
         private Party affiliation = null;
 
-        public CitizenIssueData(Citizen owner)
+        public CitizenIssueData(uint owner)
         {
-            this.owner = new WeakPtr<Citizen>(owner);
+            this.owner = owner;
         }
 
-        public bool ShouldBeRemoved()
-        {
-            if (this.owner.IsAlive)
-                return false;
-            return true;
-        }
-
-        public Citizen Owner
+        public uint Owner
         {
             get
             {
-                return this.owner.Target;
+                return this.owner;
             }
         }
 
@@ -39,6 +34,14 @@ namespace Republic
             set
             {
                 this.affiliation = value;
+            }
+        }
+
+        public bool AllowedToVote
+        {
+            get
+            {
+                return !citizenManager.m_citizens.m_buffer[this.owner].Dead && Citizen.GetAgeGroup(citizenManager.m_citizens.m_buffer[this.owner].Age) == Citizen.AgeGroup.Adult;
             }
         }
     }
