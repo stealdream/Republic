@@ -32,14 +32,17 @@ namespace Republic
 
         private void OnGUI()
         {
-            if (GUI.Button(this.openButtonRect, "Gov"))
+            if (RepublicCore.Instance.Milestones.GovernmentUnlocked)
             {
-                this.openWindow = !this.openWindow;
-            }
+                if (GUI.Button(this.openButtonRect, "Gov"))
+                {
+                    this.openWindow = !this.openWindow;
+                }
 
-            if (this.openWindow)
-            {
-                GUI.Window(this.windowId, windowRect, WindowFunc, "Government");
+                if (this.openWindow)
+                {
+                    GUI.Window(this.windowId, windowRect, WindowFunc, "Government");
+                }
             }
         }
 

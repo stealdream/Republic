@@ -30,6 +30,8 @@ namespace Republic
     public class MilestonesManager
     {
         private IMilestones milestonesInterface = null;
+        private bool unlockedGovernment = false;
+        private bool unlockedParties = false;
 
         public MilestonesManager(IMilestones milestonesInterface)
         {
@@ -47,7 +49,38 @@ namespace Republic
 
         public void Update()
         {
+            if(!this.unlockedGovernment)
+            {
+                this.unlockedGovernment = this.CheckMilestone("Basic Road Created");
+            }
+            if(!this.unlockedParties)
+            {
+                this.unlockedParties = this.CheckMilestone("Milestone1");
+            }
+        }
 
+        public bool CheckMilestone(string name)
+        {
+            Dictionary<string, MilestoneInfo> milestones = UnlockManager.instance.m_allMilestones;
+            MilestoneInfo value;
+            milestones.TryGetValue(name, out value);
+            return UnlockManager.instance.Unlocked(value);
+        }
+
+        public bool GovernmentUnlocked
+        {
+            get
+            {
+                return this.unlockedGovernment;
+            }
+        }
+
+        public bool PartiesUnlocked
+        {
+            get
+            {
+                return this.unlockedParties;
+            }
         }
     }
 }
