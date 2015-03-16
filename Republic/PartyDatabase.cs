@@ -25,11 +25,6 @@ namespace Republic
 
         public void Initiate()
         {
-            int numParties = UnityEngine.Random.Range(2, 8);
-            for(int index = 0; index < numParties; index++)
-            {
-                GenerateRandomParty();
-            }
         }
 
         public Party CreateParty(string name, Color color)
