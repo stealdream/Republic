@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColossalFramework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -18,31 +19,35 @@ namespace Republic
             this.issues.Clear();
             this.numVoters = 0;
 
-            Array32<Citizen> citizens = CitizenManager.instance.m_citizens;
-            for(uint index = 0, size = citizens.ItemCount(); index < size; index++)
+            Citizen[] citizens = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
+            for (int index = 0, size = citizens.Length; index < size; index++)
             {
-                if (/*(citizens.m_buffer[index].m_flags & Citizen.Flags.Created) == 0 || */
-                    (citizens.m_buffer[index].m_flags & Citizen.Flags.DummyTraffic) != 0 ||
-                    (citizens.m_buffer[index].m_flags & Citizen.Flags.Tourist) != 0)
-                    continue;
-
-                this.issues.Add(this.GenerateDataFor(index));
+                if (!citizens[index].Dead &&
+                    (citizens[index].m_flags & Citizen.Flags.Created) != 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.DummyTraffic) == 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.Tourist) == 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.MovingIn) == 0)
+                {
+                    this.issues.Add(this.GenerateDataFor(index));
+                }
             }
         }
 
         public void Update()
         {
             this.numVoters = 0;
-            Array32<Citizen> citizens = CitizenManager.instance.m_citizens;
-            for (uint index = 0, size = citizens.ItemCount(); index < size; index++)
+            Citizen[] citizens = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
+            for (int index = 0, size = citizens.Length; index < size; index++)
             {
-                if (/*(citizens.m_buffer[index].m_flags & Citizen.Flags.Created) == 0 ||*/
-                    (citizens.m_buffer[index].m_flags & Citizen.Flags.DummyTraffic) != 0 ||
-                    (citizens.m_buffer[index].m_flags & Citizen.Flags.Tourist) != 0)
-                    continue;
-
-                if(!this.HasDataFor(index))
-                    this.issues.Add(this.GenerateDataFor(index));
+                if (!citizens[index].Dead &&
+                    (citizens[index].m_flags & Citizen.Flags.Created) != 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.DummyTraffic) == 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.Tourist) == 0 &&
+                    (citizens[index].m_flags & Citizen.Flags.MovingIn) == 0)
+                {
+                    if (!this.HasDataFor(index))
+                        this.issues.Add(this.GenerateDataFor(index));
+                }
             }
             for(int index = 0, size = this.issues.Count; index < size; index++)
             {
@@ -53,7 +58,7 @@ namespace Republic
             }
         }
 
-        public bool HasDataFor(uint citizen)
+        public bool HasDataFor(int citizen)
         {
             for(int index = 0, size = this.issues.Count; index < size; index++)
             {
@@ -80,7 +85,7 @@ namespace Republic
             }
         }
 
-        private CitizenIssueData GenerateDataFor(uint citizen)
+        private CitizenIssueData GenerateDataFor(int citizen)
         {
             CitizenIssueData data = new CitizenIssueData(citizen);
             PartyDatabase parties = RepublicCore.Instance.PartyDatabase;
