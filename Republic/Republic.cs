@@ -113,6 +113,7 @@ namespace Republic
         private GovernmentUI governmentUI = null;
         private PartyDatabase partyDatabase = null;
         private CitizenIssueDatabase citizenDatabase = null;
+        private PoliticalIssueDatabase issueDatabase = null;
         private MilestonesManager milestones = null;
         private int windowIdCounter = 0;
         private bool initiated = false;
@@ -137,6 +138,9 @@ namespace Republic
 
             this.partyDatabase = new PartyDatabase();
             this.partyDatabase.Initiate();
+
+            this.issueDatabase = new PoliticalIssueDatabase();
+            this.issueDatabase.Initiate();
 
             this.citizenDatabase = new CitizenIssueDatabase();
             this.citizenDatabase.Initiate();
@@ -175,6 +179,14 @@ namespace Republic
             get
             {
                 return this.citizenDatabase;
+            }
+        }
+
+        public PoliticalIssueDatabase PoliticalIssueDatabase
+        {
+            get
+            {
+                return this.issueDatabase;
             }
         }
 

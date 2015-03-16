@@ -11,10 +11,19 @@ namespace Republic
         static private CitizenManager citizenManager = Singleton<CitizenManager>.instance;
         private int owner = 0;
         private Party affiliation = null;
+        private List<PoliticalIssue> issues = new List<PoliticalIssue>();
 
         public CitizenIssueData(int owner)
         {
             this.owner = owner;
+
+            this.DetermineIssues();
+        }
+
+        public void DetermineIssues()
+        {
+            this.issues.Clear();
+            this.issues.Add(RepublicCore.Instance.PoliticalIssueDatabase.GetIssue(0));
         }
 
         public int Owner

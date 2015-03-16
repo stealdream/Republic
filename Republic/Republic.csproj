@@ -60,6 +60,8 @@
     <Compile Include="Milestones.cs" />
     <Compile Include="Party.cs" />
     <Compile Include="PartyDatabase.cs" />
+    <Compile Include="PoliticalIssue.cs" />
+    <Compile Include="PoliticalIssueDatabase.cs" />
     <Compile Include="Watch.cs" />
     <Compile Include="Republic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
