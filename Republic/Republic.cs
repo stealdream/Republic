@@ -69,6 +69,7 @@ namespace Republic
         {
             this.threading = threading;
             this.core = RepublicCore.Instance;
+            this.core.managers = threading.managers;
         }
 
         public void OnReleased()
@@ -82,6 +83,7 @@ namespace Republic
             if (this.core.Initiated)
             {
                 this.core.CitizenIssueDatabase.Update();
+                this.core.Milestones.Update();
             }
         }
     }
@@ -105,11 +107,13 @@ namespace Republic
             ourInstance = null;
         }
 
+        public IManagers managers = null;
         private GameObject coreObject = null;
         private Debugger debuggerComponent = null;
         private GovernmentUI governmentUI = null;
         private PartyDatabase partyDatabase = null;
         private CitizenIssueDatabase citizenDatabase = null;
+        private MilestonesManager milestones = null;
         private int windowIdCounter = 0;
         private bool initiated = false;
 
@@ -136,6 +140,8 @@ namespace Republic
 
             this.citizenDatabase = new CitizenIssueDatabase();
             this.citizenDatabase.Initiate();
+
+            this.milestones = new MilestonesManager(this.managers.milestones);
 
             this.initiated = true;
         }
@@ -169,6 +175,14 @@ namespace Republic
             get
             {
                 return this.citizenDatabase;
+            }
+        }
+
+        public MilestonesManager Milestones
+        {
+            get
+            {
+                return this.milestones;
             }
         }
 

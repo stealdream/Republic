@@ -7,20 +7,47 @@ using GroogyLib.Core;
 
 namespace Republic
 {
-    public class RepublicMilestones : MilestonesExtensionBase
+    public class RepublicMilestonesInterface : IMilestonesExtension
     {
-        public override void OnCreated(IMilestones milestones)
+        public void OnCreated(IMilestones milestoneInterface)
         {
-            base.OnCreated(milestones);
         }
 
-        public override void OnReleased()
+        public int OnGetPopulationTarget(int originalTarget, int scaledTarget)
         {
-            base.OnReleased();
+            return scaledTarget * 2;
         }
 
-        public override void OnRefreshMilestones()
+        public void OnRefreshMilestones()
         {
+        }
+
+        public void OnReleased()
+        {
+        }
+    }
+
+    public class MilestonesManager
+    {
+        private IMilestones milestonesInterface = null;
+
+        public MilestonesManager(IMilestones milestonesInterface)
+        {
+            this.milestonesInterface = milestonesInterface;
+        }
+
+        public void DumpMilestones()
+        {
+            string[] milestones = this.milestonesInterface.EnumerateMilestones();
+            for (int index = 0; index < milestones.Length; index++)
+            {
+                RepublicCore.Instance.Debugger.Log(milestones[index]);
+            }
+        }
+
+        public void Update()
+        {
+
         }
     }
 }
