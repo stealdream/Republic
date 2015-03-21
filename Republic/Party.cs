@@ -9,12 +9,14 @@ namespace Republic
     {
         private string name = "";
         private Color color = Color.white;
+        private string creationMessage = "";
         private List<PoliticalIssue> issues = new List<PoliticalIssue>();
 
-        public Party(string name, Color color)
+        public Party(string name, Color color, string creationMessage)
         {
             this.name = name;
             this.color = color;
+            this.creationMessage = creationMessage;
         }
 
         public void CopyIssues(List<PoliticalIssue> issues)
@@ -36,6 +38,14 @@ namespace Republic
             get
             {
                 return this.color;
+            }
+        }
+
+        public string CreationMessage
+        {
+            get
+            {
+                return this.creationMessage;
             }
         }
 

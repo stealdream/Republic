@@ -19,7 +19,11 @@ namespace Republic
         public void AddNewPartyMessage(CitizenIssueData creator)
         {
             Party party = creator.Affiliation;
-            this.AddMessage(creator.Owner, "Join my new party! " + party.Name + " will bring the future! #politics");
+            string message = "I just created the " + party.Name + "! ";
+            if(party.CreationMessage.Length > 0)
+                message += party.CreationMessage + " ";
+            message += "#politics";
+            this.AddMessage(creator.Owner, message);
         }
 
     }

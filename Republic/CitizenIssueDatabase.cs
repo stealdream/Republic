@@ -51,6 +51,8 @@ namespace Republic
                         this.issues.Add(this.GenerateDataFor(index));
                 }
             }
+
+            uint heavyUpdateID = SimulationManager.instance.m_currentTickIndex % 1000;
             for(int index = 0, size = this.issues.Count; index < size; index++)
             {
                 CitizenIssueData data = this.issues[index];
@@ -58,10 +60,13 @@ namespace Republic
                 if (data.AllowedToVote)
                     this.numVoters++;
 
-                if(this.ShouldStartParty(data))
+                if (data.Owner % 1000 == heavyUpdateID) // Heavy update
                 {
-                    data.Affiliation = parties.GeneratePartyFor(data);
-                    RepublicCore.Instance.Chirper.AddNewPartyMessage(data);
+                    if (this.ShouldStartParty(data) && UnityEngine.Random.Range(0, 10) == 0)
+                    {
+                        data.Affiliation = parties.GeneratePartyFor(data);
+                        RepublicCore.Instance.Chirper.AddNewPartyMessage(data);
+                    }
                 }
             }
         }
