@@ -55,6 +55,29 @@ namespace Republic
             return CreateParty(PotentialNames[template], PotentialColors[template]);
         }
 
+        public Party GeneratePartyFor(CitizenIssueData citizen)
+        {
+            bool unique = false;
+            int template = 0;
+            while (!unique)
+            {
+                unique = true;
+                template = UnityEngine.Random.Range(0, PotentialNames.Length - 1);
+                string name = PotentialNames[template];
+                for (int index = 0, size = this.parties.Count; index < size; index++)
+                {
+                    if (this.parties[index].Name == name)
+                    {
+                        unique = false;
+                        break;
+                    }
+                }
+            }
+            Party party = this.CreateParty(PotentialNames[template], PotentialColors[template]);
+            party.CopyIssues(citizen.Issues);
+            return party;
+        }
+
         public Party GetParty(int index)
         {
             return this.parties[index];

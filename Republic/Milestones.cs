@@ -15,7 +15,7 @@ namespace Republic
 
         public int OnGetPopulationTarget(int originalTarget, int scaledTarget)
         {
-            return scaledTarget * 2;
+            return scaledTarget;//scaledTarget * 2;
         }
 
         public void OnRefreshMilestones()

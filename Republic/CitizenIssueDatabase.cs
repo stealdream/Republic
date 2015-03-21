@@ -20,7 +20,7 @@ namespace Republic
             this.numVoters = 0;
 
             Citizen[] citizens = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
-            for (int index = 0, size = citizens.Length; index < size; index++)
+            for (uint index = 0, size = (uint)citizens.Length; index < size; index++)
             {
                 if (!citizens[index].Dead &&
                     (citizens[index].m_flags & Citizen.Flags.Created) != 0 &&
@@ -35,9 +35,11 @@ namespace Republic
 
         public void Update()
         {
+            PartyDatabase parties = RepublicCore.Instance.PartyDatabase;
             this.numVoters = 0;
+
             Citizen[] citizens = Singleton<CitizenManager>.instance.m_citizens.m_buffer;
-            for (int index = 0, size = citizens.Length; index < size; index++)
+            for (uint index = 0, size = (uint) citizens.Length; index < size; index++)
             {
                 if (!citizens[index].Dead &&
                     (citizens[index].m_flags & Citizen.Flags.Created) != 0 &&
@@ -55,10 +57,16 @@ namespace Republic
 
                 if (data.AllowedToVote)
                     this.numVoters++;
+
+                if(this.ShouldStartParty(data))
+                {
+                    data.Affiliation = parties.GeneratePartyFor(data);
+                    RepublicCore.Instance.Chirper.AddNewPartyMessage(data);
+                }
             }
         }
 
-        public bool HasDataFor(int citizen)
+        public bool HasDataFor(uint citizen)
         {
             for(int index = 0, size = this.issues.Count; index < size; index++)
             {
@@ -85,11 +93,29 @@ namespace Republic
             }
         }
 
-        private CitizenIssueData GenerateDataFor(int citizen)
+        private CitizenIssueData GenerateDataFor(uint citizen)
         {
             CitizenIssueData data = new CitizenIssueData(citizen);
-            PartyDatabase parties = RepublicCore.Instance.PartyDatabase;
+            data.DetermineIssues();
             return data;
+        }
+
+        private bool ShouldStartParty(CitizenIssueData data)
+        {
+            if(!data.CanStartParty)
+                return false;
+
+            PartyDatabase parties = RepublicCore.Instance.PartyDatabase;
+            float issueSaturation = 0;
+            for(int index = 0, size = parties.NumParties; index < size; index++)
+            {
+                Party party = parties.GetParty(index);
+                float partySaturation = data.DetermineIssueSaturation(party);
+                if (partySaturation > 0)
+                    issueSaturation = partySaturation;
+            }
+
+            return issueSaturation <= 0.25f;
         }
     }
 }

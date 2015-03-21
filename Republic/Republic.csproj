@@ -53,8 +53,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chirper.cs" />
     <Compile Include="CitizenIssueData.cs" />
     <Compile Include="CitizenIssueDatabase.cs" />
+    <Compile Include="CitizenIssueUI.cs" />
     <Compile Include="Debugger.cs" />
     <Compile Include="GovernmentUI.cs" />
     <Compile Include="Milestones.cs" />

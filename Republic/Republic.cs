@@ -115,6 +115,7 @@ namespace Republic
         private CitizenIssueDatabase citizenDatabase = null;
         private PoliticalIssueDatabase issueDatabase = null;
         private MilestonesManager milestones = null;
+        private ChirperManager chirper = null;
         private int windowIdCounter = 0;
         private bool initiated = false;
 
@@ -128,6 +129,8 @@ namespace Republic
             string[] namespaces = { "Republic" };
             GameObject coreTemplate = new GameObject("RepublicCore");
             this.coreObject = GameObject.Instantiate(coreTemplate);
+            GameObject.FindWithTag("GameController").AddComponent<CitizenIssueUI>();
+            ToolsModifierControl.SetTool<DefaultTool>();
             this.debuggerComponent = this.coreObject.AddComponent<Debugger>();
             this.debuggerComponent.Initiate(namespaces);
             this.debuggerComponent.SetupGUI(new Rect(Screen.width - 60, 65, 50, 50), "Debug", new Vector2(800, 600));
@@ -146,6 +149,7 @@ namespace Republic
             this.citizenDatabase.Initiate();
 
             this.milestones = new MilestonesManager(this.managers.milestones);
+            this.chirper = new ChirperManager();
 
             this.initiated = true;
         }
@@ -195,6 +199,14 @@ namespace Republic
             get
             {
                 return this.milestones;
+            }
+        }
+
+        public ChirperManager Chirper
+        {
+            get
+            {
+                return this.chirper;
             }
         }
 
